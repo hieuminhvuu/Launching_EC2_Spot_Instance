@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Launching EC2 spot instances via EC2 fleet on AWS System Manager</title>
+    <link>https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/4-launching_ec2_spot_instance_via_ec2_fleet/</link>
+    <description>Recent content in Launching EC2 spot instances via EC2 fleet on AWS System Manager</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <atom:link href="https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/4-launching_ec2_spot_instance_via_ec2_fleet/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

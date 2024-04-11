@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spot Blueprint on AWS System Manager</title>
+    <link>https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/vi/8-spot_blueprints/</link>
+    <description>Recent content in Spot Blueprint on AWS System Manager</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>vi</language>
+    <atom:link href="https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/vi/8-spot_blueprints/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

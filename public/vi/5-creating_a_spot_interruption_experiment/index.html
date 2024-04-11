@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.123.0">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="../../Launching_EC2_Spot_Instance/images/favicon.png" type="image/png">
+
+    <title>Tạo một điểm gián đoạn :: AWS System Manager</title>
+
+    
+    <link href="../../Launching_EC2_Spot_Instance/css/nucleus.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/fontawesome-all.min.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/hybrid.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/featherlight.min.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/perfect-scrollbar.min.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/auto-complete.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/atom-one-dark-reasonable.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/theme.css?1712872786" rel="stylesheet">
+    <link href="../../Launching_EC2_Spot_Instance/css/hugo-theme.css?1712872786" rel="stylesheet">
+    
+    <link href="../../Launching_EC2_Spot_Instance/css/theme-workshop.css?1712872786" rel="stylesheet">
+    
+    
+
+    <script src="../../Launching_EC2_Spot_Instance/js/jquery-3.3.1.min.js?1712872786"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="../../Launching_EC2_Spot_Instance/vi/5-creating_a_spot_interruption_experiment/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="../../">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="../../Launching_EC2_Spot_Instance/js/lunr.min.js?1712872786"></script>
+<script type="text/javascript" src="../../Launching_EC2_Spot_Instance/js/auto-complete.js?1712872786"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/hieuminhvuu.github.io\/Launching_EC2_Spot_Instance\/\/vi";
+    
+</script>
+<script type="text/javascript" src="../../Launching_EC2_Spot_Instance/js/search.js?1712872786"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/1-starting_the_workshop/" title="Bắt đầu workshop" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/1-starting_the_workshop/">
+           <b> 1. </b> Bắt đầu workshop
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/2-creating_a_launch_template/" title="Khởi tạo một launch template" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/2-creating_a_launch_template/">
+           <b> 2. </b> Khởi tạo một launch template
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/3-launching_ec2_spot_instances_via_ec2_auto_scaling_group/" title="Chạy EC2 spot instances thông qua EC2 auto scaling group" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/3-launching_ec2_spot_instances_via_ec2_auto_scaling_group/">
+           <b> 3. </b> Chạy EC2 spot instances thông qua EC2 auto scaling group
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/4-launching_ec2_spot_instance_via_ec2_fleet/" title="Chạy EC2 spot thông qua via EC2 fleet" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/4-launching_ec2_spot_instance_via_ec2_fleet/">
+           <b> 4. </b> Chạy EC2 spot thông qua via EC2 fleet
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/5-creating_a_spot_interruption_experiment/" title="Tạo một điểm gián đoạn" class="dd-item 
+        
+        active
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/5-creating_a_spot_interruption_experiment/">
+           <b> 5. </b> Tạo một điểm gián đoạn
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/6-savings_summary/" title="Saving summary" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/6-savings_summary/">
+           <b> 6. </b> Saving summary
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/7-spot_placement_score/" title="Spot placement score" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/7-spot_placement_score/">
+           <b> 7. </b> Spot placement score
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/8-spot_blueprints/" title="Spot Blueprint" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/8-spot_blueprints/">
+           <b> 8. </b> Spot Blueprint
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/Launching_EC2_Spot_Instance/vi/9-clean_up/" title="Dọn dẹp tài nguyên" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../Launching_EC2_Spot_Instance/vi/9-clean_up/">
+           <b> 9. </b> Dọn dẹp tài nguyên
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/5-creating_a_spot_interruption_experiment/">English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/vi/5-creating_a_spot_interruption_experiment/" selected>Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    <br>
+    <br>
+    <b> Last Updated </b> <br>
+    <i>
+        <font color=orange>Mar 09 2022</font>
+    </i>
+</left>
+<left>
+    <br>
+    <br>
+    <b> Author </b> <br>
+
+    <i> <a href="https://www.linkedin.com/in/hieuminhvuu/" style="color:orange">Hieu Vu</a> <br>
+    </i>
+</left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/5-Creating_a_spot_interruption_experiment/_index.vi.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='../../Launching_EC2_Spot_Instance/vi/'>Khởi chạy EC2 Spot Instance</a> > Tạo một điểm gián đoạn
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#ngắt-spot-instances-trực-tiếp-từ-amazon-ec2-console">Ngắt Spot instances trực tiếp từ Amazon EC2 Console</a></li>
+        <li><a href="#ngắt-spot-instance-trong-aws-fis-bằng-aws-cli">Ngắt Spot Instance trong AWS FIS bằng AWS CLI</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Tạo một điểm gián đoạn
+            </h1>
+          
+
+        
+
+
+
+	
+<div class="notices info" ><p>Bạn có thể khởi chạy Spot Instances với dung lượng EC2 dự phòng để được giảm giá mạnh, đổi lại việc trả lại chúng khi Amazon EC2 cần lấy lại dung lượng. Khi Amazon EC2 lấy lại Spot Instance, chúng tôi gọi sự kiện này là <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html">gián đoạn Spot Instance</a>.</p>
+</div>
+
+<p>Khi sử dụng Spot Instances, bạn cần chuẩn bị sẵn sàng cho tình trạng gián đoạn Spot Instances. Một phương pháp phổ biến là kiểm tra khả năng phục hồi của ứng dụng bằng cách mô phỏng các gián đoạn Spot. Bạn có thể kích hoạt tính năng gián đoạn Spot bằng cách sử dụng <a href="https://docs.aws.amazon.com/fis/latest/userguide/what-is.html">AWS Fault Tiêm Simulator (FIS)</a> bằng cách nhắm mục tiêu các Spot Instances riêng lẻ hoặc một tập hợp con của các instance được quản lý bởi các dịch vụ như ASG và EC2 Fleet.</p>
+<h3 id="ngắt-spot-instances-trực-tiếp-từ-amazon-ec2-console">Ngắt Spot instances trực tiếp từ Amazon EC2 Console</h3>
+<p>To trigger a Spot Instance interruption from the Amazon EC2 console, you just need to navigate to the Spot Request section. Select a Spot Instance request and then choose Actions and then Initiate interruption. Behind the scenes, we then use AWS FIS to inject the interruption in your selected Spot Instance.</p>
+<p>Để kích hoạt gián đoạn Spot Instance từ Amazon EC2 console, bạn chỉ cần điều hướng đến phần Spot Request. Chọn một yêu cầu Spot Instance, sau đó chọn Action rồi Initiate interruption. Phía sau, chúng tôi sử dụng AWS FIS để đưa gián đoạn vào Spot Instance đã chọn của bạn.</p>
+<p><img alt="Initiate interruption" src="../../images/s1/102.png"></p>
+<h3 id="ngắt-spot-instance-trong-aws-fis-bằng-aws-cli">Ngắt Spot Instance trong AWS FIS bằng AWS CLI</h3>
+
+<div class="notices warning" ><p>Hiện tại, AWS FIS có Định mức dịch vụ tối đa là 5 tài nguyên cho mỗi mục tiêu thử nghiệm trên mỗi tài khoản trên mỗi khu vực và Không thể định cấu hình Định mức dịch vụ. Điều này có nghĩa là ngay cả khi thử nghiệm của bạn nhắm mục tiêu nhiều hơn 5 EC2 Spot Instances, AWS FIS sẽ tự giới hạn ở mức 5 EC2 Spot Instances bị gián đoạn trên mỗi thử nghiệm. Bạn có thể vượt qua giới hạn này bằng cách chạy nhiều hơn 1 thử nghiệm cùng một lúc.</p>
+</div>
+
+<p>Để sử dụng AWS FIS, bạn chạy thử nghiệm trên tài nguyên AWS của mình để kiểm tra lý thuyết về cách ứng dụng hoặc hệ thống sẽ hoạt động trong điều kiện có lỗi. Để chạy thử nghiệm, trước tiên bạn phải tạo mẫu thử nghiệm. Mẫu thử nghiệm là bản thiết kế thử nghiệm của bạn. Nó chứa các hành động, mục tiêu và điều kiện dừng cho thử nghiệm.</p>
+<p>Trong phần này, bạn 1- tạo vai trò IAM cấp cho AWS FIS quyền thực hiện thử nghiệm, 2- tạo mẫu thử nghiệm FIS và 3- và chạy thử nghiệm để kích hoạt gián đoạn Spot Instance.</p>
+<h4 id="1-tạo-một-iam-role-cho-aws-fis">1. Tạo một IAM Role cho AWS FIS</h4>
+<p>Để sử dụng AWS FIS, bạn phải tạo IAM role cấp cho AWS FIS các quyền cần thiết để AWS FIS có thể thay mặt bạn chạy thử nghiệm. Bạn chỉ định role thử nghiệm này khi tạo mẫu thử nghiệm. Để biết thêm thông tin, hãy xem <a href="https://docs.aws.amazon.com/fis/latest/userguide/getting-started-iam-service-role.html">Tạo vai trò IAM cho thử nghiệm AWS FIS</a>.</p>
+<ol>
+<li>Role thử nghiệm phải có mối quan hệ tin cậy cho phép dịch vụ AWS FIS đảm nhận vai trò này. Tạo một tệp văn bản có tên fis_role_trust_policy.json để thêm mối quan hệ tin cậy.</li>
+</ol>
+<pre tabindex="0"><code>cat &lt;&lt;EoF &gt; ./fis_role_trust_policy.json
+{
+    &#34;Version&#34;: &#34;2012-10-17&#34;,
+    &#34;Statement&#34;: [
+        {
+            &#34;Sid&#34;: &#34;AllowFISExperimentRoleAssumeRole&#34;,
+            &#34;Effect&#34;: &#34;Allow&#34;,
+            &#34;Principal&#34;: {
+                &#34;Service&#34;: [
+                &#34;fis.amazonaws.com&#34;
+                ]
+            },
+            &#34;Action&#34;: &#34;sts:AssumeRole&#34;
+        }
+
+    ]
+}
+EoF
+</code></pre><ol start="2">
+<li>Chạy lệnh create-role để tạo role với chính sách đáng tin.</li>
+</ol>
+<pre tabindex="0"><code>aws iam create-role --role-name my-fis-role --assume-role-policy-document file://fis_role_trust_policy.json
+</code></pre><ol start="3">
+<li>Thử nghiệm yêu cầu quyền truy cập để thực hiện hành động ec2:RebootInstances, ec2:StopInstances, ec2:StartInstances, ec2:TerminateInstances và aws:ec2:send-spot-instance-interruptions trên EC2 Instances. Chạy lệnh bên dưới để tạo tệp cấu hình fis_role_permissions_policy.json nhằm thêm các chính sách cấp phép bắt buộc.</li>
+</ol>
+<pre tabindex="0"><code>cat &lt;&lt;EoF &gt; ./fis_role_permissions_policy.json
+{
+    &#34;Version&#34;: &#34;2012-10-17&#34;,
+    &#34;Statement&#34;: [
+        {
+            &#34;Sid&#34;: &#34;AllowFISExperimentRoleEC2Actions&#34;,
+            &#34;Effect&#34;: &#34;Allow&#34;,
+            &#34;Action&#34;: [
+                &#34;ec2:RebootInstances&#34;,
+                &#34;ec2:StopInstances&#34;,
+                &#34;ec2:StartInstances&#34;,
+                &#34;ec2:TerminateInstances&#34;
+            ],
+            &#34;Resource&#34;: &#34;arn:aws:ec2:*:*:instance/*&#34;
+        },
+        {
+            &#34;Sid&#34;: &#34;AllowFISExperimentRoleSpotInstanceActions&#34;,
+            &#34;Effect&#34;: &#34;Allow&#34;,
+            &#34;Action&#34;: [
+                &#34;ec2:SendSpotInstanceInterruptions&#34;
+            ],
+            &#34;Resource&#34;: &#34;arn:aws:ec2:*:*:instance/*&#34;
+        }
+    ]
+}
+EoF
+</code></pre><ol start="4">
+<li>Chạy lệnh put-role-policy để thêm những quyền này tới role đã tạo lúc trước đó.</li>
+</ol>
+<pre tabindex="0"><code>aws iam put-role-policy --role-name my-fis-role --policy-name my-fis-policy --policy-document file://fis_role_permissions_policy.json
+</code></pre><ol start="5">
+<li>Lưu ARN của role được tạo trong biến môi trường để sử dụng trong các phần tiếp theo.</li>
+</ol>
+<pre tabindex="0"><code>export FIS_ROLE_ARN=$(aws iam get-role --role-name my-fis-role | jq -r &#39;.Role.Arn&#39;)
+</code></pre><h4 id="2-tạo-ra-mẫu-thử-nghiệm-spot-interruption">2. Tạo ra mẫu thử nghiệm Spot interruption</h4>
+<p>Ở bước này, bạn tạo một mẫu thử nghiệm gửi tính năng gián đoạn Spot tới Spot Instances được khởi chạy thông qua nhóm EC2 Auto Scaling hoặc nhóm EC2 trong các chương trước.</p>
+<p>Mẫu thử nghiệm AWS FIS bao gồm:</p>
+<ul>
+<li>
+<p>Một hành động, đó là một hoạt động mà AWS FIS thực hiện trên tài nguyên AWS trong quá trình thử nghiệm. Trong trường hợp này, bạn sử dụng hành động được cấu hình sẵn aws:ec2:send-spot-instance-interruptions để gửi thông báo gián đoạn Spot Instance tới các Spot Instance hai phút trước khi làm gián đoạn chúng. Hành động này cũng gửi đề xuất cân bằng lại phiên bản EC2 dựa trên tham số intervalBeforeInterruption. Trong trường hợp này, bạn đặt Hành động được cấu hình sẵn aws:ec2:send-spot-instance-interruptions với thời lượngBeforeInterruption được đặt thành 2 phút. Bạn có thể thay đổi thành giá trị lớn hơn 2 phút để thể hiện đề xuất cân bằng lại EC2 Instance trước thông báo gián đoạn Spot Instance.</p>
+</li>
+<li>
+<p>Mục tiêu là một hoặc nhiều tài nguyên AWS mà trên đó thử nghiệm AWS FIS thực hiện một hành động trong quá trình thử nghiệm. Trong trường hợp này, bạn đặt mục tiêu với aws:ec2:spot-instance làm loại tài nguyên và lọc Spot Instance được khởi chạy qua ASG bằng cách sử dụng các Thẻ tài nguyên được đặt thành &ldquo;aws:autoscaling:groupName&rdquo;: &ldquo;EC2SpotWorkshopASG&rdquo;.</p>
+</li>
+<li>
+<p>Điều kiện dừng là cơ chế của AWS FIS để dừng thử nghiệm nếu thử nghiệm đạt đến ngưỡng mà bạn xác định là cảnh báo của Amazon CloudWatch. Trong trường hợp này, thử nghiệm chạy mà không có điều kiện dừng.</p>
+</li>
+</ul>
+<ol>
+<li>Tạo một mẫu thử nghiệm bằng lệnh này.</li>
+</ol>
+<pre tabindex="0"><code>cat &lt;&lt;EoF &gt; ./spot_experiment.json
+{
+    &#34;description&#34;: &#34;Test Spot Instance interruptions&#34;,
+    &#34;targets&#34;: {
+        &#34;SpotInstancesInASG&#34;: {
+            &#34;resourceType&#34;: &#34;aws:ec2:spot-instance&#34;,
+            &#34;resourceTags&#34;: {
+                &#34;aws:autoscaling:groupName&#34;: &#34;EC2SpotWorkshopASG&#34;
+            },
+            &#34;filters&#34;: [
+                {
+                    &#34;path&#34;: &#34;State.Name&#34;,
+                    &#34;values&#34;: [
+                        &#34;running&#34;
+                    ]
+                }
+            ],
+            &#34;selectionMode&#34;: &#34;PERCENT(50)&#34;
+        }
+    },
+    &#34;actions&#34;: {
+        &#34;interruptSpotInstance&#34;: {
+            &#34;actionId&#34;: &#34;aws:ec2:send-spot-instance-interruptions&#34;,
+            &#34;parameters&#34;: {
+                &#34;durationBeforeInterruption&#34;: &#34;PT2M&#34;
+            },
+            &#34;targets&#34;: {
+                &#34;SpotInstances&#34;: &#34;SpotInstancesInASG&#34;
+            }
+        }
+    },
+    &#34;stopConditions&#34;: [
+        {
+            &#34;source&#34;: &#34;none&#34;
+        }
+    ],
+    &#34;roleArn&#34;: &#34;${FIS_ROLE_ARN}&#34;,
+    &#34;tags&#34;: {}
+}
+EoF
+</code></pre><ol start="2">
+<li>Tạo mẫu thử nghiệm bằng cách sử dụng cấu hình json.</li>
+</ol>
+<pre tabindex="0"><code>export FIS_TEMPLATE_ID=$(aws fis create-experiment-template --cli-input-json file://spot_experiment.json | jq -r &#39;.experimentTemplate.id&#39;)
+</code></pre><h4 id="3-chạy-thử-nghiệm-gián-đoạn-spot">3. Chạy thử nghiệm gián đoạn Spot</h4>
+<p>Để chạy thử nghiệm, bạn sử dụng lệnh bắt đầu thử nghiệm để chạy mẫu đã tạo trước đó. Bạn có thể chạy thử nghiệm nhiều lần để xác thực kết quả chạy ứng dụng của bạn trên EC2 Spot.</p>
+<pre tabindex="0"><code>aws fis start-experiment --experiment-template-id $FIS_TEMPLATE_ID
+</code></pre><p>Theo kết quả của thử nghiệm này, bạn thấy rằng 50% Spot Instance do nhóm Auto Scaling khởi chạy nhận được tín hiệu Đề xuất tái cân bằng. Lưu ý rằng con số này nhỏ hơn Hạn ngạch dịch vụ là 5, là số lượng EC2 Spot Instance tối đa có thể bị gián đoạn bởi một thử nghiệm. Khi các hành động trong thử nghiệm này hoàn tất:</p>
+<ul>
+<li>Spot Instance mục tiêu nhận được tín hiệu đề xuất cân bằng lại Instance.</li>
+<li>Thông báo gián đoạn Spot Instance được đưa ra hai phút trước khi Amazon EC2 chấm dứt Instance của bạn.</li>
+<li>Sau hai phút, Spot Instance sẽ kết thúc.</li>
+</ul>
+
+<div class="notices warning" ><p>Thử nghiệm có thể thất bại nếu bạn không có bất kỳ Spot Instance nào đang chạy trong nhóm EC2 Auto Scaling hoặc Nhóm EC2 của mình. Nếu bạn gặp lỗi khiến thử nghiệm không thành công, hãy mở rộng quy mô nhóm EC2 Auto Scaling hoặc EC2 Fleet để cung cấp các EC2 Spot Instance.</p>
+</div>
+
+<p>Thiết lập nhóm Tự động thay đổi quy mô trong ví dụ đã bật Cân bằng lại công suất và do đó, nhóm Tự động thay đổi quy mô sẽ bắt đầu khởi chạy các EC2 Spot Instance thay thế khi các Spot Instance nhận được tín hiệu gián đoạn. Bạn có thể xem những sự kiện này trong ASG.</p>
+<p><img alt="Rebalance recommendation asg" src="../../images/s1/103.png"></p>
+<p>Với những thử nghiệm này, bạn có thể xác thực khả năng phục hồi của khối lượng công việc của mình trước tình trạng gián đoạn Spot và tùy ý cải thiện khả năng phục hồi của khối lượng công việc bằng cách triển khai các tác vụ điểm kiểm tra hoặc dọn dẹp.</p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="../../Launching_EC2_Spot_Instance/vi/4-launching_ec2_spot_instance_via_ec2_fleet/" title="Chạy EC2 spot thông qua via EC2 fleet"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="../../Launching_EC2_Spot_Instance/vi/6-savings_summary/" title="Saving summary" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="../../Launching_EC2_Spot_Instance/js/clipboard.min.js?1712872786"></script>
+    <script src="../../Launching_EC2_Spot_Instance/js/perfect-scrollbar.min.js?1712872786"></script>
+    <script src="../../Launching_EC2_Spot_Instance/js/perfect-scrollbar.jquery.min.js?1712872786"></script>
+    <script src="../../Launching_EC2_Spot_Instance/js/jquery.sticky.js?1712872786"></script>
+    <script src="../../Launching_EC2_Spot_Instance/js/featherlight.min.js?1712872786"></script>
+    <script src="../../Launching_EC2_Spot_Instance/js/highlight.pack.js?1712872786"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../../Launching_EC2_Spot_Instance/js/modernizr.custom-3.6.0.js?1712872786"></script>
+    <script src="../../Launching_EC2_Spot_Instance/js/learn.js?1712872786"></script>
+    <script src="../../Launching_EC2_Spot_Instance/js/hugo-learn.js?1712872786"></script>
+
+    <link href="../../Launching_EC2_Spot_Instance/mermaid/mermaid.css?1712872786" rel="stylesheet" />
+    <script src="../../Launching_EC2_Spot_Instance/mermaid/mermaid.js?1712872786"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Creating a spot interruption experiment on AWS System Manager</title>
+    <link>https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/5-creating_a_spot_interruption_experiment/</link>
+    <description>Recent content in Creating a spot interruption experiment on AWS System Manager</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <atom:link href="https://hieuminhvuu.github.io/Launching_EC2_Spot_Instance/5-creating_a_spot_interruption_experiment/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
